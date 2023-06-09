@@ -10,7 +10,7 @@ describe Merchant do
     it {should have_many(:invoices).through(:invoice_items)}
     it { should have_many(:customers).through(:invoices) }
     it { should have_many(:transactions).through(:invoices) }
-
+    it { should have_many(:coupons)}
   end
 
   describe "class methods" do
@@ -139,7 +139,28 @@ describe Merchant do
       @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
       @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
 
+      
+      @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
+      @active_coupon2 = Coupon.create!( coupon_name: "10off", coupon_code: "TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
+      @active_coupon3 = Coupon.create!( coupon_name: "15off", coupon_code: "fif", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
+      @active_coupon4 = Coupon.create!( coupon_name: "45off", coupon_code: "FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
+      @deactive_coupon1 = Coupon.create!( coupon_name: "25%off", coupon_code: "TWOFIVE", merchant_id: @merchant1.id, discount_amount: 0.25, discount_type: 0) 
+      @deactive_coupon2 = Coupon.create!( coupon_name: "10%off", coupon_code: "10PERCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
     end
+
+    #max_active_coupons?  active_coupons_count 
+    it "active_coupons_count" do
+      expect(@merchant1.active_coupons_count).to eq(4)
+    end
+
+    it "max_active_coupons?" do
+      expect(@merchant1.max_active_coupons?).to eq(false)
+
+      @deactive_coupon1.update(status: 1)
+
+      expect(@merchant1.max_active_coupons?).to eq(true)
+    end
+
     it "can list items ready to ship" do
       expect(@merchant1.ordered_items_to_ship).to eq([@item_1, @item_1, @item_3, @item_4, @item_7, @item_8, @item_4, @item_4])
     end
@@ -170,3 +191,4 @@ describe Merchant do
     end
   end
 end
+

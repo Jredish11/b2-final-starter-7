@@ -64,10 +64,10 @@ class Merchant < ApplicationRecord
   end
 
   def active_coupons_count
-
+    coupons.where(status: 1).count
   end
 
   def max_active_coupons?
-
+    active_coupons_count >= 5
   end
 end

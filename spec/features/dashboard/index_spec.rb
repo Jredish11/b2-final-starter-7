@@ -40,6 +40,13 @@ RSpec.describe "merchant dashboard" do
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
 
+    @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
+    @active_coupon2 = Coupon.create!( coupon_name: "10off", coupon_code: "TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
+    @active_coupon3 = Coupon.create!( coupon_name: "15off", coupon_code: "fif", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
+    @active_coupon4 = Coupon.create!( coupon_name: "45off", coupon_code: "FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
+    @deactive_coupon1 = Coupon.create!( coupon_name: "25%off", coupon_code: "TWOFIVE", merchant_id: @merchant1.id, discount_amount: 0.25, discount_type: 0) 
+    @deactive_coupon2 = Coupon.create!( coupon_name: "10%off", coupon_code: "10PERCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
+
     visit merchant_dashboard_index_path(@merchant1)
   end
 
@@ -108,9 +115,9 @@ RSpec.describe "merchant dashboard" do
   end
 
   it "each invoice id is a link to my merchant's invoice show page " do
-    expect(page).to have_link(@item_1.invoice_ids)
-    expect(page).to have_link(@item_2.invoice_ids)
-    expect(page).to_not have_link(@item_3.invoice_ids)
+    expect(page).to have_link("#{@item_1.invoice_ids}")
+    expect(page).to have_link("#{@item_2.invoice_ids}")
+    expect(page).to_not have_link("#{@item_3.invoice_ids}")
 
     click_link("#{@item_1.invoice_ids}", match: :first)
     expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_1.id}")
@@ -118,5 +125,11 @@ RSpec.describe "merchant dashboard" do
 
   it "shows the date that the invoice was created in this format: Monday, July 18, 2019" do
     expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %-d, %Y"))
+  end
+
+  #US 1
+
+  it "shows a link to view all of my coupons" do
+    expect(page).to have_link("View All Coupons", href: merchant_coupons_path(@merchant1))
   end
 end

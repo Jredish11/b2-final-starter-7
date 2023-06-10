@@ -1,5 +1,11 @@
 <%= render partial: "shared/nav" %>
 
+<div>
+  <ul>
+    <li><%= link_to "View All Coupons", merchant_coupons_path(@merchant) %></li>
+  </ul>
+</div>
+
 <div class="row">
   <div class="col-sm-6 column-header">
     <p class='mr-auto'>Favorite Customers</p>

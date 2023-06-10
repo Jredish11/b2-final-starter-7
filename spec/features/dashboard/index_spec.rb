@@ -131,5 +131,6 @@ RSpec.describe "merchant dashboard" do
 
   it "shows a link to view all of my coupons" do
     expect(page).to have_link("View All Coupons", href: merchant_coupons_path(@merchant1))
+    expect(page).to_not have_link("View All Merchants")
   end
 end

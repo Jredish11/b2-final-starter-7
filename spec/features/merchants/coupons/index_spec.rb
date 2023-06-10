@@ -14,7 +14,6 @@ RSpec.describe "Merchant Coupons Index" do
 
   it "displays all of the coupons names including their amount off" do
     visit merchant_coupons_path(@merchant1)
-    save_and_open_page
     expect(page).to have_content("Merchant Coupons Index")
     expect(page).to have_content(@active_coupon1.coupon_name)
     expect(page).to have_content(@active_coupon1.discount_amount)

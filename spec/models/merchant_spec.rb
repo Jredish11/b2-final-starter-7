@@ -148,9 +148,17 @@ describe Merchant do
       @deactive_coupon2 = Coupon.create!( coupon_name: "10%off", coupon_code: "10PERCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
     end
 
-    #max_active_coupons?  active_coupons_count 
     it "active_coupons_count" do
       expect(@merchant1.active_coupons_count).to eq(4)
+      
+      @deactive_coupon1.update(status: 1)
+      
+      expect(@merchant1.active_coupons_count).to eq(5)
+
+      @active_coupon1.update(status: 0)
+      @active_coupon2.update(status: 0)
+
+      expect(@mer)
     end
 
     it "max_active_coupons?" do

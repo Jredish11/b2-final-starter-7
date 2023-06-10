@@ -32,8 +32,18 @@ RSpec.describe "Merchant Coupons Index" do
   it "coupon name is a link to it's show page" do
     visit merchant_coupons_path(@merchant1)
 
-    expect(page).to have_link(@active_coupon1.coupon_name)
+    expect(page).to have_link("#{@active_coupon1.coupon_name}")
 
-    click_link(@active_coupon1.coupon_name)
+    click_link("#{@active_coupon1.coupon_name}")
+
+    expect(current_path).to eq(merchant_coupon_path(@merchant1, @active_coupon1))
+  end
+
+  it "goes to another coupon show page" do
+    visit merchant_coupons_path(@merchant1)
+
+    click_link("#{@deactive_coupon2.coupon_name}")
+
+    expect(current_path).to eq(merchant_coupon_path(@merchant1, @deactive_coupon2))
   end
 end

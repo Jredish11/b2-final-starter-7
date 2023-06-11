@@ -40,12 +40,12 @@ RSpec.describe "merchant dashboard" do
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
 
-    @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
-    @active_coupon2 = Coupon.create!( coupon_name: "10off", coupon_code: "TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
-    @active_coupon3 = Coupon.create!( coupon_name: "15off", coupon_code: "fif", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
-    @active_coupon4 = Coupon.create!( coupon_name: "45off", coupon_code: "FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
-    @deactive_coupon1 = Coupon.create!( coupon_name: "25%off", coupon_code: "TWOFIVE", merchant_id: @merchant1.id, discount_amount: 0.25, discount_type: 0) 
-    @deactive_coupon2 = Coupon.create!( coupon_name: "10%off", coupon_code: "10PERCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
+    @active_coupon1 = Coupon.create!( coupon_name: "566off", coupon_code: "1FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 25, discount_type: 1) 
+    @active_coupon2 = Coupon.create!( coupon_name: "1660off", coupon_code: "2TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 210, discount_type: 1) 
+    @active_coupon3 = Coupon.create!( coupon_name: "15666off", coupon_code: "3fif", merchant_id: @merchant1.id, status: 1, discount_amount: 215, discount_type: 1) 
+    @active_coupon4 = Coupon.create!( coupon_name: "4566off", coupon_code: "4FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 245, discount_type: 1) 
+    @deactive_coupon1 = Coupon.create!( coupon_name: "256%off", coupon_code: "5TWOFIVE", merchant_id: @merchant1.id, discount_amount: 0.15, discount_type: 0) 
+    @deactive_coupon2 = Coupon.create!( coupon_name: "106%off", coupon_code: "610PERCENT", merchant_id: @merchant1.id, discount_amount: 0.13, discount_type: 0) 
 
     visit merchant_dashboard_index_path(@merchant1)
   end

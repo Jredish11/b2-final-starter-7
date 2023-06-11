@@ -4,12 +4,12 @@ RSpec.describe "Merchant Coupons Index" do
   before :each do
     @merchant1 = Merchant.create!(name: "Hair Care")
     @merchant2 = Merchant.create!(name: "Dog Care")
-    @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
-    @active_coupon2 = Coupon.create!( coupon_name: "10off", coupon_code: "TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
-    @active_coupon3 = Coupon.create!( coupon_name: "15off", coupon_code: "fif", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
-    @active_coupon4 = Coupon.create!( coupon_name: "45off", coupon_code: "FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
-    @deactive_coupon1 = Coupon.create!( coupon_name: "25%off", coupon_code: "TWOFIVE", merchant_id: @merchant2.id, discount_amount: 0.25, discount_type: 0) 
-    @deactive_coupon2 = Coupon.create!( coupon_name: "tenoff", coupon_code: "10PERCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
+    @active_coupon1 = Coupon.create!( coupon_name: "53off", coupon_code: "Feee", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
+    @active_coupon2 = Coupon.create!( coupon_name: "12off", coupon_code: "TensdfsdaER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
+    @active_coupon3 = Coupon.create!( coupon_name: "16off", coupon_code: "ffddadsf", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
+    @active_coupon4 = Coupon.create!( coupon_name: "3off", coupon_code: "rFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
+    @deactive_coupon1 = Coupon.create!( coupon_name: "2%off", coupon_code: "TVE", merchant_id: @merchant2.id, discount_amount: 0.25, discount_type: 0) 
+    @deactive_coupon2 = Coupon.create!( coupon_name: "tenoff", coupon_code: "RCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
   end
 
 
@@ -52,7 +52,7 @@ RSpec.describe "Merchant Coupons Index" do
   end
 
   #US 2
- 
+  
   # I am taken to a new page where I see a form to add a new coupon.
   # When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
   # And click the Submit button
@@ -87,9 +87,17 @@ RSpec.describe "Merchant Coupons Index" do
     
     
     click_button("Submit")
-    save_and_open_page
     expect(current_path).to eq(merchant_coupons_path(@merchant1))
     expect(page).to have_content(@active_coupon1.discount_amount)
     expect(page).to have_content("Shiny New Item")
   end
 end
+
+# describe "Sad Paths" do
+#   @merchant1 = Merchant.create!(name: "Hair Care")
+#   @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
+#   @active_coupon2 = Coupon.create!( coupon_name: "10off", coupon_code: "TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
+#   @active_coupon3 = Coupon.create!( coupon_name: "15off", coupon_code: "fif", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
+#   @active_coupon4 = Coupon.create!( coupon_name: "45off", coupon_code: "FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
+#   @active_coupon5 = Coupon.create!( coupon_name: "tenoff", coupon_code: "10PERCENT", merchant_id: @merchant1.id, status: 1, discount_amount: 0.10, discount_type: 0) 
+# end

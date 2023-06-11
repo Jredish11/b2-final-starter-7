@@ -32,7 +32,7 @@ RSpec.describe "Merchant Coupons Index" do
 
   it "coupon name is a link to it's show page" do
     visit merchant_coupons_path(@merchant1)
-    save_and_open_page
+    
 
     expect(page).to have_link("#{@active_coupon1.coupon_name}")
     # expect(page).to_not have_link("#{@deactive_coupon1.coupon_name}")
@@ -49,5 +49,47 @@ RSpec.describe "Merchant Coupons Index" do
     click_link("#{@deactive_coupon2.coupon_name}")
 
     expect(current_path).to eq(merchant_coupon_path(@merchant1, @deactive_coupon2))
+  end
+
+  #US 2
+ 
+  # I am taken to a new page where I see a form to add a new coupon.
+  # When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
+  # And click the Submit button
+  # I'm taken back to the coupon index page 
+  # And I can see my new coupon listed.
+  
+  
+  # * Sad Paths to consider: 
+  # 1. This Merchant already has 5 active coupons
+  # 2. Coupon code entered is NOT unique
+
+  it "displays a link to create new coupon" do
+    visit merchant_coupons_path(@merchant1)
+
+    expect(page).to have_link("Create New Coupon")
+  end
+
+  it "user clicks on link, taken to new coupon page" do
+    visit merchant_coupons_path(@merchant2)
+
+    click_link("Create New Coupon")
+
+    expect(current_path).to eq(new_merchant_coupon_path(@merchant2))
+  end
+
+  it "shows newly created coupon on the index page" do
+    visit new_merchant_coupon_path(@merchant1)
+    fill_in 'Coupon name', with: 'Shiny New Item'
+    fill_in 'Coupon code', with: 'Super Duper Shiny'
+    fill_in 'Discount amount', with: 25
+    select "Dollar off", from: 'Discount type'
+    
+    
+    click_button("Submit")
+    save_and_open_page
+    expect(current_path).to eq(merchant_coupons_path(@merchant1))
+    expect(page).to have_content(@active_coupon1.discount_amount)
+    expect(page).to have_content("Shiny New Item")
   end
 end

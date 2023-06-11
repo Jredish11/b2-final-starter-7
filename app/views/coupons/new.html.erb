@@ -21,6 +21,11 @@
     <%= form.select :discount_type, options_for_select([['Percentage off', :percent_off], ['Dollar off', :dollar_off]]) %>
   </div>
 
+   <div>
+    <%= form.label :status, "Status" %>
+    <%= form.select :status, options_for_select([['Deactived', :deactivated], ['Activated', :activated]]) %>
+  </div>
+
   <div>
     <%= form.submit "Submit" %>
   </div>

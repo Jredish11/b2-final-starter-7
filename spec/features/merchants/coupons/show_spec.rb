@@ -74,9 +74,10 @@ RSpec.describe "Merchant Coupons Show Page" do
     end
 
     it "displays the count of how many times the coupon has been used in a transaction" do
-      visit merchant_coupon
+      visit merchant_coupon_path(@merchant1, @active_coupon1)
+      save_and_open_page
       expect(page).to have_content(@active_coupon1.transaction_success_count)
-      expect(page).to have_content(1)
+      expect(page).to have_content("count: 1")
     end
   end
 end

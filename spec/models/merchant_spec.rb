@@ -158,7 +158,7 @@ describe Merchant do
       @active_coupon1.update(status: 0)
       @active_coupon2.update(status: 0)
 
-      expect(@mer)
+      expect(@merchant1.active_coupons_count).to eq(3)
     end
 
     it "max_active_coupons?" do
@@ -166,7 +166,12 @@ describe Merchant do
 
       @deactive_coupon1.update(status: 1)
 
+      expect(@merchant1.max_active_coupons?).to eq(false)
+
+      @deactive_coupon2.update(status: 1)
+
       expect(@merchant1.max_active_coupons?).to eq(true)
+
     end
 
     it "can list items ready to ship" do

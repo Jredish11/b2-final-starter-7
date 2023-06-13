@@ -5,8 +5,7 @@ class CouponsController < ApplicationController
   end
 
   def show
-   
-    @coupon = Coupon.find(params[:id])    
+    @coupon = Coupon.find(params[:id])
   end
 
   def new
@@ -27,10 +26,21 @@ class CouponsController < ApplicationController
       redirect_to new_merchant_coupon_path(merchant)
     end
   end
+
+  def update
+    coupon = Coupon.find(params[:id])
+    merchant = Merchant.find(params[:merchant_id])
+    coupon.update(coupon_status_params)
+    redirect_to merchant_coupon_path(merchant, coupon)
+  end
 end
 
 private
 
 def coupon_params
   params.permit(:coupon_name, :coupon_code, :discount_amount, :discount_type, :status)
+end
+
+def coupon_status_params
+  params.permit(:status)
 end

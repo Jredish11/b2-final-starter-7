@@ -7,3 +7,14 @@
 <%= @coupon.status %>
 
 <p>count: <%= @coupon.transaction_success_count %>
+
+<section id="activated">
+  <% if @coupon.status == "activated" %>
+    <%= form_with url: merchant_coupon_path(@coupon.merchant.id, @coupon), method: :patch do |form|  %>
+      <div>
+        <%= form.hidden_field :status, value: "deactivated" %>
+        <%= form.submit "deactivate" %>
+      </div>
+    <% end %>
+  <% end %>
+</section>

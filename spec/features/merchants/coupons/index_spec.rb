@@ -8,7 +8,7 @@ RSpec.describe "Merchant Coupons Index" do
     @active_coupon2 = Coupon.create!( coupon_name: "12off", coupon_code: "TensdfsdaER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
     @active_coupon3 = Coupon.create!( coupon_name: "16off", coupon_code: "ffddadsf", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
     @active_coupon4 = Coupon.create!( coupon_name: "3off", coupon_code: "rFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
-    @deactive_coupon1 = Coupon.create!( coupon_name: "2%off", coupon_code: "TVE", merchant_id: @merchant2.id, discount_amount: 0.25, discount_type: 0) 
+    @deactive_coupon1 = Coupon.create!( coupon_name: "2%off", coupon_code: "TVE", merchant_id: @merchant1.id, discount_amount: 0.25, discount_type: 0) 
     @deactive_coupon2 = Coupon.create!( coupon_name: "tenoff", coupon_code: "RCENT", merchant_id: @merchant1.id, discount_amount: 0.10, discount_type: 0) 
   end
 
@@ -79,6 +79,25 @@ RSpec.describe "Merchant Coupons Index" do
     expect(current_path).to eq(merchant_coupons_path(@merchant1))
     expect(page).to have_content(@active_coupon1.discount_amount)
     expect(page).to have_content("Shiny New Item")
+  end
+    # 6. Merchant Coupon Index Sorted
+
+    # As a merchant
+    # When I visit my coupon index page
+    # I can see that my coupons are separated between active and inactive coupons. 
+  it "displays coupons separated by active and inactive coupons" do
+    visit merchant_coupons_path(@merchant1)
+    save_and_open_page
+    within "#active_coupons" do
+      expect(page).to have_link("#{@active_coupon1.coupon_name}")
+      expect(page).to have_link("#{@active_coupon2.coupon_name}")
+      expect(page).to have_link("#{@active_coupon3.coupon_name}")
+      expect(page).to have_link("#{@active_coupon4.coupon_name}")
+    end
+    within "#deactive_coupons" do
+      expect(page).to have_content("#{@deactive_coupon1.coupon_name}")
+      expect(page).to have_content("#{@deactive_coupon2.coupon_name}")
+    end
   end
 end
 

@@ -64,7 +64,6 @@ RSpec.describe "Merchant Coupons Create New Coupon Page" do
       
       
       click_button("Submit")
-      save_and_open_page
       expect(current_path).to eq(new_merchant_coupon_path(@merchant1))
       expect(page).to have_content("Already 5 active coupons for this merchant")
       expect(page).to_not have_content("twotwo")

@@ -11,4 +11,7 @@ class Coupon < ApplicationRecord
   enum status: [:deactivated, :activated]
   enum discount_type: [:percent_off, :dollar_off]
 
+  def transaction_success_count
+    transactions.where(result: 1).count
+  end
 end

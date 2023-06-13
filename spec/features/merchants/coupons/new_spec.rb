@@ -8,7 +8,7 @@ RSpec.describe "Merchant Coupons Create New Coupon Page" do
       @active_coupon2 = Coupon.create!( coupon_name: "13offdf", coupon_code: "Tedsfsdf", merchant_id: @merchant1.id, status: 1, discount_amount: 95, discount_type: 1) 
       @active_coupon3 = Coupon.create!( coupon_name: "1dfd8off", coupon_code: "dfsaff", merchant_id: @merchant1.id, status: 1, discount_amount: 38, discount_type: 1) 
       @active_coupon4 = Coupon.create!( coupon_name: "49dfdfoff", coupon_code: "FdsdoVER", merchant_id: @merchant1.id, status: 1, discount_amount: 46, discount_type: 1) 
-      @active_coupon5 = Coupon.create!( coupon_name: "abde", coupon_code: "FdfdaeeeeR", merchant_id: @merchant1.id, status: 1, discount_amount: 9, discount_type: 1) 
+      @active_coupon5 = Coupon.create!( coupon_name: "abde", coupon_code: "FdfdaeeeeR", merchant_id: @merchant1.id, discount_amount: 9, discount_type: 1) 
       @deactive_coupon1 = Coupon.create!( coupon_name: "29dsfsfd%off", coupon_code: "TWsdfsdfIVE", merchant_id: @merchant1.id, discount_amount: 0.23, discount_type: 0) 
       @deactive_coupon2 = Coupon.create!( coupon_name: "ninesdfsdfoff", coupon_code: "10dfssadfENT", merchant_id: @merchant1.id, discount_amount: 0.19, discount_type: 0) 
 
@@ -39,29 +39,51 @@ RSpec.describe "Merchant Coupons Create New Coupon Page" do
     end
     
     it "user can fill form out and clicks submit, redirected back to coupon index page" do
-      fill_in 'Coupon name', with: 'Shiny New Item'
-      fill_in 'Coupon code', with: 'Super Duper Shiny'
-      fill_in 'Discount amount', with: 25
+      fill_in 'Coupon name', with: 'Sweet'
+      fill_in 'Coupon code', with: 'shiny'
+      fill_in 'Discount amount', with: 1
       select "Dollar off", from: 'Discount type'
+      select "Deactivated", from: 'Status'
       
       
       click_button("Submit")
       
       expect(current_path).to eq(merchant_coupons_path(@merchant1))
     end
- 
+    
     it "does not create a new coupon if there are already 5 active coupons for the same merchant" do
-      fill_in 'Coupon name', with: "Sixty-four"
-      fill_in 'Coupon code', with: "64cut"
-      fill_in 'Discount amount', with: 64
+      @active_coupon5.update(status: 1)
+      @deactive_coupon1.update(status: 1)
+
+      fill_in 'Coupon name', with: "twotwo"
+      fill_in 'Coupon code', with: "TWsdfsdfIVE"
+      fill_in 'Discount amount', with: 22
       select "Dollar off", from: 'Discount type'
       select "Activated", from: 'Status'
+
       
       
       click_button("Submit")
       save_and_open_page
       expect(current_path).to eq(new_merchant_coupon_path(@merchant1))
-      expect(page).to have_content("Form has empty fields, coupon code exists, or already 5 active coupons for this merchant. Please check your inputs.")
+      expect(page).to have_content("Already 5 active coupons for this merchant")
+      expect(page).to_not have_content("twotwo")
+    end
+    
+    it "does not create a new coupon if the code already exists" do
+      fill_in 'Coupon name', with: "twotwo"
+      fill_in 'Coupon code', with: "TWsdfsdfIVE"
+      fill_in 'Discount amount', with: 22
+      select "Dollar off", from: 'Discount type'
+      select "Deactivated", from: 'Status'
+      
+      
+      click_button("Submit")
+      expect(current_path).to eq(new_merchant_coupon_path(@merchant1))
+      expect(page).to have_content("Form has empty fields or the coupon code already exists. Please check your inputs.")
+      expect(page).to_not have_content("twotwo")
+
+      
     end
   end
 end

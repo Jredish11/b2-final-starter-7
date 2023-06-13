@@ -68,6 +68,6 @@ class Merchant < ApplicationRecord
   end
 
   def max_active_coupons?
-    active_coupons_count >= 5
+    active_coupons_count > 5
   end
 end

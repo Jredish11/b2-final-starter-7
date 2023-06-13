@@ -5,4 +5,11 @@ RSpec.describe Coupon, type: :model do
     it { should belong_to :merchant }
     it { should have_many :invoices }
   end
+  
+  describe "validations" do
+    it { should validate_presence_of(:coupon_name) }
+    it { should validate_presence_of(:coupon_code) }
+    it { should validate_presence_of(:discount_amount) }
+    it { should validate_presence_of(:discount_type) }
+  end
 end

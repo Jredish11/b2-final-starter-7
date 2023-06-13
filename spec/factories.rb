@@ -34,4 +34,13 @@ FactoryBot.define do
     merchant
     invoice
   end
+
+  # factory :coupon do
+  #   coupon_name {Faker::FunnyName.name }
+  #   coupon_code {Faker::Commerce.promotion_code }
+  #   status {[0,1].sample}
+  #   discount_amount {Faker::Commerce.price(range: 0..75.0) }
+  #   discount_type {[0,1].sample}
+  #   merchant
+  # end
 end

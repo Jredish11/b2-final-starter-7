@@ -88,7 +88,6 @@ RSpec.describe "Merchant Coupons Index" do
     
     
     click_button("Submit")
-    save_and_open_page
     expect(current_path).to eq(merchant_coupons_path(@merchant1))
     expect(page).to have_content(@active_coupon1.discount_amount)
     expect(page).to have_content("Shiny New Item")

@@ -4,7 +4,22 @@
   <p><%= link_to "Create New Coupon", new_merchant_coupon_path(@merchant) %></p>
 </div>
 
+<section id="active_coupons">
+  <p>Active Coupons</p>
   <% @coupons.each do |coupon| %>
+  <% if coupon.status == "activated" %>
   <p>Name: <%= link_to "#{coupon.coupon_name}", merchant_coupon_path(@merchant, coupon) %></p>
   <p>Amount off: <%= coupon.discount_amount %></p> 
-<% end %>
+    <% end %>
+  <% end %>
+</section>
+<section id="deactive_coupons">
+  <p>Deactive Coupons</p>
+  <% @coupons.each do |coupon| %>
+  <% if coupon.status == "deactivated" %>
+  <p>Name: <%= link_to "#{coupon.coupon_name}", merchant_coupon_path(@merchant, coupon) %></p>
+  <p>Amount off: <%= coupon.discount_amount %></p> 
+    <% end %>
+  <% end %>
+</section>
+

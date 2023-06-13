@@ -75,9 +75,44 @@ RSpec.describe "Merchant Coupons Show Page" do
 
     it "displays the count of how many times the coupon has been used in a transaction" do
       visit merchant_coupon_path(@merchant1, @active_coupon1)
-      save_and_open_page
       expect(page).to have_content(@active_coupon1.transaction_success_count)
       expect(page).to have_content("count: 1")
+    end
+
+                #us 4 4. Merchant Coupon Deactivate
+
+            # As a merchant 
+            # When I visit one of my active coupon's show pages
+            # I see a button to deactivate that coupon
+            # When I click that button
+            # I'm taken back to the coupon show page 
+            # And I can see that its status is now listed as 'inactive'.
+
+            # * Sad Paths to consider: 
+            # 1. A coupon cannot be deactivated if there are any pending invoices with that coupon.
+
+    it "displays a button to deactivate that coupon" do
+      visit merchant_coupon_path(@merchant1, @active_coupon1)
+      within "#activated" do
+        expect(page).to have_button("deactivate")
+      end
+      
+      visit merchant_coupon_path(@merchant1, @deactive_coupon2)
+      within "#activated" do
+        expect(page).to_not have_button("deactivate")
+      end
+    end
+
+    it "when button is clicked taken back to the coupon show page and see status as inactive" do
+      visit merchant_coupon_path(@merchant1, @active_coupon1)
+      within "#activated" do
+        expect(@active_coupon1.status).to eq("activated")
+        click_button("deactivate")
+        @active_coupon1.reload
+        save_and_open_page
+        expect(current_path).to eq(merchant_coupon_path(@merchant1, @active_coupon1))
+        expect(@active_coupon1.status).to eq("deactivated")
+      end
     end
   end
 end

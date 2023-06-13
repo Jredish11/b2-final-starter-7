@@ -102,12 +102,6 @@ RSpec.describe "Merchant Coupons Show Page" do
       end
     end
     
-    # As a merchant 
-    # When I visit one of my inactive coupon show pages
-    # I see a button to activate that coupon
-    # When I click that button
-    # I'm taken back to the coupon show page 
-    # And I can see that its status is now listed as 'active'.
     it "when i visit a deactive coupon show page i see a button to activate the coupon" do
       visit merchant_coupon_path(@merchant1, @deactive_coupon2)
       within "#deactivated" do

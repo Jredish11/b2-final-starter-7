@@ -26,18 +26,6 @@ class CouponsController < ApplicationController
       redirect_to new_merchant_coupon_path(merchant)
     end
   end
-
-
-    # if coupon.status == "Activated" && merchant.max_active_coupons?
-    # redirect_to new_merchant_coupon_path(merchant)
-    # flash[:alert] = "Already 5 active coupons for this merchant"
-    # elsif coupon.status == "Deactivated" || !merchant.max_active_coupons?
-    # coupon.save
-    # redirect_to merchant_coupons_path(merchant)
-    #   flash[:alert] = "Already 5 active coupons for this merchant"
-    # else
-    #   redirect_to new_merchant_coupon_path(merchant)
-    #   flash[:alert] = "Form has empty fields, coupon code exists, or already 5 active coupons for this merchant. Please check your inputs."
 end
 
 private

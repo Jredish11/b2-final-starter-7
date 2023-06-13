@@ -26,8 +26,7 @@ RSpec.describe "Merchant Coupons Index" do
     expect(page).to have_content(@active_coupon4.discount_amount)
     expect(page).to have_content(@deactive_coupon2.coupon_name)
     expect(page).to have_content(@deactive_coupon2.discount_amount)
-    # expect(page).to_not have_content(@deactive_coupon1.coupon_name)
-    # expect(page).to_not have_content(@deactive_coupon1.discount_amount)
+
   end
 
   it "coupon name is a link to it's show page" do
@@ -35,7 +34,7 @@ RSpec.describe "Merchant Coupons Index" do
     
 
     expect(page).to have_link("#{@active_coupon1.coupon_name}")
-    # expect(page).to_not have_link("#{@deactive_coupon1.coupon_name}")
+   
 
 
     click_link("#{@active_coupon1.coupon_name}")
@@ -51,18 +50,7 @@ RSpec.describe "Merchant Coupons Index" do
     expect(current_path).to eq(merchant_coupon_path(@merchant1, @deactive_coupon2))
   end
 
-  #US 2
-  
-  # I am taken to a new page where I see a form to add a new coupon.
-  # When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
-  # And click the Submit button
-  # I'm taken back to the coupon index page 
-  # And I can see my new coupon listed.
-  
-  
-  # * Sad Paths to consider: 
-  # 1. This Merchant already has 5 active coupons
-  # 2. Coupon code entered is NOT unique
+
 
   it "displays a link to create new coupon" do
     visit merchant_coupons_path(@merchant1)
@@ -94,11 +82,3 @@ RSpec.describe "Merchant Coupons Index" do
   end
 end
 
-# describe "Sad Paths" do
-#   @merchant1 = Merchant.create!(name: "Hair Care")
-#   @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 
-#   @active_coupon2 = Coupon.create!( coupon_name: "10off", coupon_code: "TenER", merchant_id: @merchant1.id, status: 1, discount_amount: 10, discount_type: 1) 
-#   @active_coupon3 = Coupon.create!( coupon_name: "15off", coupon_code: "fif", merchant_id: @merchant1.id, status: 1, discount_amount: 15, discount_type: 1) 
-#   @active_coupon4 = Coupon.create!( coupon_name: "45off", coupon_code: "FourFIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 45, discount_type: 1) 
-#   @active_coupon5 = Coupon.create!( coupon_name: "tenoff", coupon_code: "10PERCENT", merchant_id: @merchant1.id, status: 1, discount_amount: 0.10, discount_type: 0) 
-# end

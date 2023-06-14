@@ -35,15 +35,3 @@ Merchant.destroy_all
 @ii_12 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_8.id, quantity: 1, unit_price: 10, status: 1)
 @ii_13 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 1)
 
-@invoice_4 = Invoice.create!(customer_id: @customer_3.id, status: 2)
-@invoice_5 = Invoice.create!(customer_id: @customer_4.id, status: 2)
-@invoice_6 = Invoice.create!(customer_id: @customer_5.id, status: 2)
-@invoice_7 = Invoice.create!(customer_id: @customer_6.id, status: 2)
-
-@transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
-@transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
-@transaction3 = Transaction.create!(credit_card_number: 234092, result: 1, invoice_id: @invoice_3.id)
-@transaction4 = Transaction.create!(credit_card_number: 230429, result: 1, invoice_id: @invoice_4.id)
-@transaction5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_5.id)
-@transaction6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
-@transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)

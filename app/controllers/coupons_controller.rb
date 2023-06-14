@@ -2,6 +2,7 @@ class CouponsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @coupons = @merchant.coupons
+    @holidays = HolidayService.holiday_info
   end
 
   def show

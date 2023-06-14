@@ -23,12 +23,12 @@ class Invoice < ApplicationRecord
   # private 
 
   def total_off
-    if coupon.discount_type == "percent_off"
-      (coupon.discount_amount.to_f * 100).round
-    elsif coupon.discount_type == "dollar_off"
-      coupon.discount_amount.to_f
-    else
+    if coupon.nil?
       return 0
+    elsif coupon.discount_type == "percent_off"
+      (coupon.discount_amount.to_f * 100).round
+    else coupon.discount_type == "dollar_off"
+      coupon.discount_amount.to_f
     end
   end
 

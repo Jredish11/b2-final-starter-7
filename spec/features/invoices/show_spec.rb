@@ -128,7 +128,10 @@ RSpec.describe "invoices show" do
 
   it "displays name and code of the coupon used as a link to that coupon's show page" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
-      save_and_open_page
-      expect(page).to have_content("Coupon: #{@active_coupon1.coupon_name} #{@active_coupon1.coupon_code}")
+      
+      expect(page).to have_link("Coupon: #{@active_coupon1.coupon_name} #{@active_coupon1.coupon_code}")
+      click_link("Coupon: #{@active_coupon1.coupon_name} #{@active_coupon1.coupon_code}")
+
+      expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice_1))
   end
 end

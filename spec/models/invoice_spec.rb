@@ -34,7 +34,7 @@ RSpec.describe Invoice, type: :model do
       @item_8 = Item.create!(name: "Butterfly Clip", description: "This holds up your hair but in a clip", unit_price: 5, merchant_id: @merchant1.id)
       @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
       @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09", coupon_id: @active_coupon1.id)
-      @invoice_3 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09", coupon_id: @active_coupon3.id)
+      @invoice_3 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09", coupon_id: nil)
       @invoice_2 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09", coupon_id: @active_coupon2.id)
       @ii_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 2)
       @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 1, unit_price: 10, status: 1)
@@ -43,10 +43,10 @@ RSpec.describe Invoice, type: :model do
       @ii_12 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_8.id, quantity: 1, unit_price: 10, status: 1)
       @ii_13 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 1)
 
-      expect(@invoice_3.total_off).to eq(100)
+      expect(@invoice_3.total_off).to eq(0)
       expect(@invoice_1.grand_total_revenue).to eq(95)
       expect(@invoice_2.grand_total_revenue).to eq(90)
-      expect(@invoice_3.grand_total_revenue).to eq(0)
+      expect(@invoice_3.grand_total_revenue).to eq(100.0)
 
     end
   end

@@ -114,7 +114,6 @@ RSpec.describe "invoices show" do
 
   it "displays the subtotal for the merchant from this invoice" do 
     visit merchant_invoice_path(@merchant1, @invoice_1)
-    save_and_open_page
     within "#subtotal" do
       expect(@invoice_1.total_revenue).to eq(162.0)
     end
@@ -125,5 +124,11 @@ RSpec.describe "invoices show" do
     within "#subtotal" do
       expect(@invoice_1.grand_total_revenue).to eq(157.0)
     end
+  end
+
+  it "displays name and code of the coupon used as a link to that coupon's show page" do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
+      save_and_open_page
+      expect(page).to have_content("Coupon: #{@active_coupon1.coupon_name} #{@active_coupon1.coupon_code}")
   end
 end

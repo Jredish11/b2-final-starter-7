@@ -5,14 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-InvoiceItem.destroy_all
-Transaction.destroy_all
-Item.destroy_all
-Coupon.destroy_all
-Invoice.destroy_all
-Customer.destroy_all
-Merchant.destroy_all
-# Rake::Task["csv_load:all"].invoke
+# InvoiceItem.destroy_all
+# Transaction.destroy_all
+# Item.destroy_all
+# Invoice.destroy_all
+# Coupon.destroy_all
+# Customer.destroy_all
+# Merchant.destroy_all
+Rake::Task["csv_load:all"].invoke
 @merchant1 = Merchant.create!(name: "Hair Care")
 @merchant2 = Merchant.create!(name: "Dog Care")
 @active_coupon1 = Coupon.create!( coupon_name: "5off", coupon_code: "FIVER", merchant_id: @merchant1.id, status: 1, discount_amount: 5, discount_type: 1) 

@@ -44,4 +44,15 @@
     </tbody>
   </table>
 
+  <h3>Invoice Revenue</h3>
+    <section id="show">
+      <% if @invoice.coupon_id.nil? %>
+          <p>Subtotal: <%= @invoice.total_revenue %>
+      <% else %>
+        <%= @invoice.coupon.coupon_name %>
+        <%= @invoice.coupon.coupon_code %>
+        <p>Subtotal: <%= @invoice.total_revenue %>
+        <p>Grand Total: <%= @invoice.grand_total_revenue %>
+      <% end %>
+      
 </body>

@@ -48,4 +48,11 @@
     </tbody>
   </table>
 
+  <h3>Invoice Revenue</h3>
+    <section id="subtotal">
+    <p>Subtotal: <%= @invoice.total_revenue %>
+    <p>Grand Total: <%= @invoice.grand_total_revenue %>
+
+    </section>
+      <p><%= link_to "Coupon: #{@invoice.coupon.coupon_name} #{@invoice.coupon.coupon_code}", merchant_invoice_path(@merchant, @invoice) %></p>
 </body>

@@ -15,4 +15,22 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum("unit_price * quantity")
   end
+
+  def grand_total_revenue
+    total_revenue - total_off
+  end
+
+  # private 
+
+  def total_off
+    if coupon.discount_type == "percent_off"
+      (coupon.discount_amount.to_f * 100).round
+    elsif coupon.discount_type == "dollar_off"
+      coupon.discount_amount.to_f
+    else
+      return 0
+    end
+  end
+
+
 end
